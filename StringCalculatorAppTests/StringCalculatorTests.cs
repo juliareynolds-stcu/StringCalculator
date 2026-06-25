@@ -13,14 +13,14 @@ public class StringCalculatorTests
     [Test]
     public void SumsWhenGivenString()
     {
-        int              result;
-        string           input;
-        StringCalculator calculator;
+        // Arrange
+        var input  = "1,2,3";
 
-        input      = "1,2,3";
-        calculator = new StringCalculator();
-        result     = calculator.Add(input);
+        // Act
+        var sut    = new StringCalculator();    // sut = system under test
+        var result = sut.Add(input);
 
+        // Assert
         result.Should().Be(6);
     }
 
