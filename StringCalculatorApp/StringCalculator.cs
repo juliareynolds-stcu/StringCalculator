@@ -13,28 +13,50 @@ public class StringCalculator()
     private int intsProcessed;
 
     /// <summary>
-    /// Sums ints contained in string. String must use commas (,) to delimit different ints.
+    /// Sums ints contained in string. defaults to commas or new lines as delimiters. 
+    /// Delimiters can be changed by including the new delimiter at the beginning of the string in the format "//[delimiter]\n[numbers...]"
+    /// Ignores invalid inputs. Returns 0 for null or empty string.
     /// </summary>
     /// <param name="numbers">a string with ints separated by commas</param>
     /// <returns>an integer representing the sum of the numbers in the string, 0 for a null or empty string</returns>
     public double Add(string numbers)
     {
+        string[] delimiters;
+
         if (string.IsNullOrWhiteSpace(numbers))
         {
             return 0;
         }
 
-        var delimiters = new string[] { ",", "\r\n", "\n" };
-        var numArray = numbers.Split(delimiters, StringSplitOptions.RemoveEmptyEntries);
+        if (numbers[0] == '/' && numbers[1] == '/')
+        {
+            var delimiterEndIndex = numbers.IndexOf('\n');
+
+            if (delimiterEndIndex == -1)
+            {
+                throw new ArgumentException("Invalid input: missing newline after custom delimiter");
+            }
+
+            var customDelimiter = numbers.Substring(2, delimiterEndIndex - 2);
+            numbers             = numbers.Substring(delimiterEndIndex + 1);
+            delimiters          = [customDelimiter];
+        }
+        else
+        {
+            delimiters = [",", "\r\n", "\n"];
+        }
+
+        
+        var numArray       = numbers.Split(delimiters, StringSplitOptions.RemoveEmptyEntries);
         var parseIntErrors = 0;
-        var sum = 0.0;
-        var intsProcessed = 0;
+        var sum            = 0.0;
+        var intsProcessed  = 0;
 
         foreach (var number in numArray)
         {
             if (double.TryParse(number.Trim(), out var toSum))
             {
-                sum += toSum;
+                sum           += toSum;
                 intsProcessed += 1;
             }
             else
@@ -44,7 +66,7 @@ public class StringCalculator()
         }
 
         this.parseIntErrors = parseIntErrors;
-        this.intsProcessed = intsProcessed;
+        this.intsProcessed  = intsProcessed;
 
         return sum;
     }
