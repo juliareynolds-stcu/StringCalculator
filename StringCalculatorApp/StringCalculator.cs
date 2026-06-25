@@ -13,7 +13,7 @@ public class StringCalculator()
     private int intsProcessed;
 
     /// <summary>
-    /// Sums ints contained in string. defaults to commas or new lines as delimiters. 
+    /// Sums ints contained in string. Defaults to commas or new lines as delimiters. 
     /// Delimiters can be changed by including the new delimiter at the beginning of the string in the format "//[delimiter]\n[numbers...]"
     /// Ignores invalid inputs. Returns 0 for null or empty string.
     /// </summary>
@@ -37,8 +37,8 @@ public class StringCalculator()
                 throw new ArgumentException("Invalid input: missing newline after custom delimiter");
             }
 
-            var customDelimiter = numbers.Substring(2, delimiterEndIndex - 2);
-            numbers             = numbers.Substring(delimiterEndIndex + 1);
+            var customDelimiter = numbers.Substring(2, delimiterEndIndex - 2).Trim();
+            numbers             = numbers.Substring(delimiterEndIndex + 1).Trim();
             delimiters          = [customDelimiter];
         }
         else
