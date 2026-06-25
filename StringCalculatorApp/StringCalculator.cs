@@ -35,11 +35,11 @@ public class StringCalculator()
             if (double.TryParse(number.Trim(), out var toSum))
             {
                 sum += toSum;
-                intsProcessed++;
+                intsProcessed += 1;
             }
             else
             {
-                parseIntErrors++;
+                parseIntErrors += 1;
             }
         }
 
