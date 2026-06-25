@@ -27,7 +27,7 @@ public static class StringCalculatorCLI
     /// Welcome the user and prompt them for input, returning a string formatted for the StringCalculator.Add() method.
     /// The string will be in the format of "//[delimiter]\n[numbers]" where [delimiter] is the user's chosen delimiter and [numbers] is the string of numbers to be summed.
     /// </summary>
-    /// <returns>string containing the user's input of numbers with the user's desired delimeter at the front</returns>
+    /// <returns>string containing the user's input of numbers with the user's desired delimiter at the front</returns>
     private static string GetUserInput()
     {
         Console.WriteLine("Welcome to String Calculator, a project following https://osherove.com/tdd-kata-1/");
@@ -36,7 +36,7 @@ public static class StringCalculatorCLI
 
         var userInput = Console.ReadLine();
 
-        Console.Write("Delimeter (leave blank for default (comma)):  ");
+        Console.Write("delimiter (leave blank for default (comma)):  ");
 
         var userDelimiter = Console.ReadLine();
 
