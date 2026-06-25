@@ -30,7 +30,7 @@ public class StringCalculator()
         var sum = 0.0;
         var intsProcessed = 0;
 
-        foreach (string number in numArray)
+        foreach (var number in numArray)
         {
             if (double.TryParse(number.Trim(), out var toSum))
             {
