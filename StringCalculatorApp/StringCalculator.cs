@@ -10,13 +10,14 @@ namespace StringCalculatorApp;
 public class StringCalculator()
 {
     private int parseIntErrors;
+    private int intsProcessed;
 
     /// <summary>
     /// Sums ints contained in string. String must use commas (,) to delimit different ints.
     /// </summary>
     /// <param name="numbers">a string with ints separated by commas</param>
     /// <returns>an integer representing the sum of the numbers in the string, 0 for a null or empty string</returns>
-    public int Add(string numbers)
+    public double Add(string numbers)
     {
         if (string.IsNullOrWhiteSpace(numbers))
         {
@@ -25,13 +26,15 @@ public class StringCalculator()
 
         var numArray = numbers.Split(",");
         var parseIntErrors = 0;
-        var sum = 0;
+        var sum = 0.0;
+        var intsProcessed = 0;
 
         foreach (string number in numArray)
         {
-            if (int.TryParse(number.Trim(), out var toSum))
+            if (double.TryParse(number.Trim(), out var toSum))
             {
                 sum += toSum;
+                intsProcessed++;
             }
             else
             {
@@ -40,16 +43,26 @@ public class StringCalculator()
         }
 
         this.parseIntErrors = parseIntErrors;
+        this.intsProcessed = intsProcessed;
 
         return sum;
     }
 
     /// <summary>
-    /// Returns the number of parse errors encountered during the last Add() call
+    /// Returns the number of parse errors encountered during the last call
     /// </summary>
     /// <returns>int the number of parse errors</returns>
     public int getParseIntErrors()
     {
         return this.parseIntErrors;
+    }
+
+    /// <summary>
+    /// Returns the number of integers processed successfully during the last call
+    /// </summary>
+    /// <returns>int - the number of ints processed</returns>
+    public int getIntsProcessed()
+    {
+        return this.intsProcessed;
     }
 }
