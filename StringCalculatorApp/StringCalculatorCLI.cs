@@ -14,7 +14,8 @@ public static class StringCalculatorCLI
         var userInput = Console.ReadLine();
         var calculator = new StringCalculator();
         var result = calculator.Add(userInput);
-
-        Console.WriteLine($"result:  {result}");
+        
+        Console.WriteLine($"\r\nresult:  {result}");
+        Console.WriteLine($"Integer parse errors:  {calculator.getParseIntErrors}");
     }
 }

@@ -9,6 +9,8 @@ namespace StringCalculatorApp;
 /// </summary>
 public class StringCalculator()
 {
+    private int parseIntErrors;
+
     /// <summary>
     /// Sums ints contained in string. String must use commas (,) to delimit different ints.
     /// </summary>
@@ -37,8 +39,17 @@ public class StringCalculator()
             }
         }
 
-        Console.WriteLine($"\r\nInteger parse errors:  {parseIntErrors}");
+        this.parseIntErrors = parseIntErrors;
 
         return sum;
+    }
+
+    /// <summary>
+    /// Returns the number of parse errors encountered during the last Add() call
+    /// </summary>
+    /// <returns>int the number of parse errors</returns>
+    public int getParseIntErrors()
+    {
+        return this.parseIntErrors;
     }
 }
