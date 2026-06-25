@@ -94,7 +94,7 @@ public class StringCalculatorTests
         var sut = new StringCalculator();
 
         // Assert
-        Assert.Throws<Exception>(() => sut.Add(input));
+        Assert.Throws<ArgumentException>(() => sut.Add(input));
     }
 
     // write fail test
