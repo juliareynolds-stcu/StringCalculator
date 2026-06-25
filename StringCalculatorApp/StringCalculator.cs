@@ -26,20 +26,20 @@ public class StringCalculator()
             return 0;
         }
 
-        var delimiters     = parseDelimiter(numbers);
-        numbers            = removeDelimiterSpecification(numbers);
+        var delimiters = parseDelimiter(numbers);
+        numbers = removeDelimiterSpecification(numbers);
 
-        var numArray       = numbers.Split(delimiters, StringSplitOptions.RemoveEmptyEntries);
+        var numArray = numbers.Split(delimiters, StringSplitOptions.RemoveEmptyEntries);
 
         var parseIntErrors = 0;
-        var sum            = 0.0;
-        var intsProcessed  = 0;
+        var sum = 0.0;
+        var intsProcessed = 0;
 
         foreach (var number in numArray)
         {
             if (double.TryParse(number.Trim(), out var toSum))
             {
-                sum           += toSum;
+                sum += toSum;
                 intsProcessed += 1;
             }
             else
@@ -49,7 +49,7 @@ public class StringCalculator()
         }
 
         this.parseIntErrors = parseIntErrors;
-        this.intsProcessed  = intsProcessed;
+        this.intsProcessed = intsProcessed;
 
         return sum;
     }
