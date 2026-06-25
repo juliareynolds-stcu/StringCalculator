@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Collections;
 
 namespace StringCalculatorApp;
 
@@ -15,7 +16,7 @@ public class StringCalculator()
     /// <summary>
     /// Sums ints contained in string. Defaults to commas or new lines as delimiters. 
     /// Delimiters can be changed by including the new delimiter at the beginning of the string in the format "//[delimiter]\n[numbers...]"
-    /// Ignores invalid inputs. Returns 0 for null or empty string.
+    /// Ignores invalid inputs. Returns 0 for null or empty string. Negative numbers are not allowed and will throw an exception.
     /// </summary>
     /// <param name="numbers">a string with ints separated by commas</param>
     /// <returns>an integer representing the sum of the numbers in the string, 0 for a null or empty string</returns>
@@ -39,6 +40,11 @@ public class StringCalculator()
         {
             if (double.TryParse(number.Trim(), out var toSum))
             {
+                if (toSum < 0)
+                {
+                    throw new ArgumentException($"Negative numbers are not allowed: {toSum}");
+                }
+
                 sum += toSum;
                 intsProcessed += 1;
             }
