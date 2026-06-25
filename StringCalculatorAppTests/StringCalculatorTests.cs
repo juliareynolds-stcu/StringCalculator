@@ -84,5 +84,18 @@ public class StringCalculatorTests
         sut.getParseIntErrors().Should().Be(0);
     }
 
+    [Test]
+    public void NegativeNumbersThrowException()
+    {
+        // Arrange
+        var input = "-1,2,-3";
+
+        // Act
+        var sut = new StringCalculator();
+
+        // Assert
+        Assert.Throws<Exception>(() => sut.Add(input));
+    }
+
     // write fail test
 }
