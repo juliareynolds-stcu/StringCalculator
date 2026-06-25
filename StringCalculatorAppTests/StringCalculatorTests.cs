@@ -68,5 +68,21 @@ public class StringCalculatorTests
         sut.getIntsProcessed().Should().Be(3);
     }
 
+    [Test]
+    public void AcceptsAlternateDelimiters()
+    {
+        // Arrange
+        var input = "//;\n1;2";
+
+        // Act
+        var sut = new StringCalculator();
+        var result = sut.Add(input);
+
+        // Assert
+        result.Should().Be(3);
+        sut.getIntsProcessed().Should().Be(2);
+        sut.getParseIntErrors().Should().Be(0);
+    }
+
     // write fail test
 }
