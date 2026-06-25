@@ -15,6 +15,6 @@ public static class StringCalculatorCLI
         var calculator = new StringCalculator();
         var result = calculator.Add(userInput);
 
-        Console.WriteLine($"\r\nresult:  {result}");
+        Console.WriteLine($"result:  {result}");
     }
 }

@@ -37,7 +37,7 @@ public class StringCalculator()
             }
         }
 
-        Console.WriteLine($"Integer parse errors:  {parseIntErrors}");
+        Console.WriteLine($"\r\nInteger parse errors:  {parseIntErrors}");
 
         return sum;
     }
