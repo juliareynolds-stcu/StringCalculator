@@ -36,7 +36,7 @@ public static class StringCalculatorCLI
 
         var userInput = Console.ReadLine();
 
-        Console.Write("delimiter (leave blank for default (comma)):  ");
+        Console.Write("Delimiter (leave blank for default - comma):  ");
 
         var userDelimiter = Console.ReadLine();
 
