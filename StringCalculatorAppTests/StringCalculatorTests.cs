@@ -53,5 +53,20 @@ public class StringCalculatorTests
         sut.getParseIntErrors().Should().Be(3);
     }
 
+    [Test]
+    public void AcceptsNewlineAsDelimiter()
+    {
+        // Arrange
+        var input = "1\n2\n3";
+
+        // Act
+        var sut = new StringCalculator();
+        var result = sut.Add(input);
+
+        // Assert
+        result.Should().Be(6);
+        sut.getIntsProcessed().Should().Be(3);
+    }
+
     // write fail test
 }

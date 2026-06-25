@@ -24,7 +24,8 @@ public class StringCalculator()
             return 0;
         }
 
-        var numArray = numbers.Split(",");
+        var delimiters = new string[] { ",", "\r\n", "\n" };
+        var numArray = numbers.Split(delimiters, StringSplitOptions.RemoveEmptyEntries);
         var parseIntErrors = 0;
         var sum = 0.0;
         var intsProcessed = 0;
