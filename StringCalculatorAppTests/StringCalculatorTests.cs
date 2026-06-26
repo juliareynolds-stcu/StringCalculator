@@ -84,5 +84,35 @@ public class StringCalculatorTests
         sut.getParseIntErrors().Should().Be(0);
     }
 
+    [Test]
+    public void getCallCountGetsNumberOfTimesAddHasBeenCalled()
+    {
+        // Arrange
+        var input = "1";
+        
+        // Act
+        var sut = new StringCalculator();
+
+        sut.Add(input);
+        sut.Add(input);
+        sut.Add(input);
+
+        // Assert
+        sut.GetCalledCount().Should().Be(3);
+    }
+
+    [Test]
+    public void GetCalledCountReturnsZeroWhenAddHasNotBeenCalled()
+    {
+        // Arrange
+        var sut = new StringCalculator();
+
+        // Act
+        var result = sut.GetCalledCount();
+
+        // Assert
+        result.Should().Be(0);
+    }
+
     // write fail test
 }
