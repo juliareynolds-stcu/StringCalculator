@@ -50,7 +50,7 @@ public class StringCalculatorTests
 
         // Assert
         result.Should().Be(1);
-        sut.getParseIntErrors().Should().Be(3);
+        sut.GetParseIntErrors().Should().Be(3);
     }
 
     [Test]
@@ -65,7 +65,7 @@ public class StringCalculatorTests
 
         // Assert
         result.Should().Be(6);
-        sut.getIntsProcessed().Should().Be(3);
+        sut.GetIntsProcessed().Should().Be(3);
     }
 
     [Test]
@@ -80,12 +80,12 @@ public class StringCalculatorTests
 
         // Assert
         result.Should().Be(3);
-        sut.getIntsProcessed().Should().Be(2);
-        sut.getParseIntErrors().Should().Be(0);
+        sut.GetIntsProcessed().Should().Be(2);
+        sut.GetParseIntErrors().Should().Be(0);
     }
 
     [Test]
-    public void getCallCountGetsNumberOfTimesAddHasBeenCalled()
+    public void GetCallCountGetsNumberOfTimesAddHasBeenCalled()
     {
         // Arrange
         var input = "1";
