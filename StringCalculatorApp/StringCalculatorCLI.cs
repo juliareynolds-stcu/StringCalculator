@@ -67,7 +67,7 @@ public static class StringCalculatorCLI
         }
         catch (Exception caught)
         {
-            Console.WriteLine($"\r\nAn error occurred while processing you input: {caught}");
+            Console.WriteLine($"\r\nAn error occurred while summing: {caught}");
         }
     }
 
