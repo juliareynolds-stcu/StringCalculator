@@ -35,6 +35,8 @@ public class StringCalculator()
         var parseIntErrors = 0;
         var sum = 0.0;
         var intsProcessed = 0;
+        
+        ArrayList negatives = new ArrayList();
 
         foreach (var number in numArray)
         {
@@ -42,10 +44,14 @@ public class StringCalculator()
             {
                 if (toSum < 0)
                 {
-                    throw new ArgumentException($"Negative numbers are not allowed: {toSum}");
+                    negatives.Add(toSum);
+                    parseIntErrors += 1;
+                }
+                else
+                {
+                    sum += toSum;
                 }
 
-                sum += toSum;
                 intsProcessed += 1;
             }
             else
@@ -56,6 +62,15 @@ public class StringCalculator()
 
         this.parseIntErrors = parseIntErrors;
         this.intsProcessed = intsProcessed;
+
+        if (negatives.Count > 0)
+        {
+            var builder = new StringBuilder();
+
+            builder.AppendJoin(", ", negatives.ToArray());
+
+            throw new ArgumentException($"Negative numbers are not allowed: {builder.ToString()}");
+        }
 
         return sum;
     }
