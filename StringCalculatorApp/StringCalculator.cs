@@ -85,6 +85,9 @@ public class StringCalculator()
             throw new ArgumentException($"Negative numbers are not allowed: {builder.ToString()}");
         }
 
+        // This is where we fire off the event. Anyone who has subscribed to it will have their delegate methods run
+        AddOccurred?.Invoke(numbers, (int)sum);
+
         return sum;
     }
 
@@ -122,4 +125,6 @@ public class StringCalculator()
     {
         return this.numsOutOfBounds;
     }
+
+    public event Action<string, int>? AddOccurred; //This is the anchor event that can be manually called and will notify subscribers
 }
