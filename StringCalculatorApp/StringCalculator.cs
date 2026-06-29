@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using System.Text;
 
+using static StringCalculatorApp.Delimiters;
+
 namespace StringCalculatorApp;
 
 /// <summary>
@@ -26,8 +28,8 @@ public class StringCalculator()
             return 0;
         }
 
-        var delimiters = parseDelimiter(numbers);
-        numbers = removeDelimiterSpecification(numbers);
+        var delimiters = ParseDelimiter(numbers);
+        numbers = RemoveDelimiterSpecification(numbers);
 
         var numArray = numbers.Split(delimiters, StringSplitOptions.RemoveEmptyEntries);
 
@@ -52,54 +54,6 @@ public class StringCalculator()
         this.intsProcessed = intsProcessed;
 
         return sum;
-    }
-
-    /// <summary>
-    /// Parses custom delimiters from the input string. 
-    /// If no custom delimiter is specified, returns the default delimiters (comma and newline).
-    /// Also trims the input string to remove the custom delimiter specification if present.
-    /// </summary>
-    /// <param name="input">the input string</param>
-    /// <returns>delimiter(s) to be used to parse the string of numbers</returns>
-    /// <exception cref="ArgumentException"></exception>
-    private string[] parseDelimiter(string input)
-    {
-        string[] delimiters;
-
-        if (input.StartsWith("//"))
-        {
-            var delimiterEndIndex = input.IndexOf('\n');
-
-            if (delimiterEndIndex < 0)
-            {
-                throw new ArgumentException("Invalid input: missing newline after custom delimiter");
-            }
-
-            var customDelimiter = input.Substring(2, delimiterEndIndex - 2).Trim();
-
-            return [customDelimiter];
-        }
-
-        return [",", "\r\n", "\n"];
-    }
-
-    /// <summary>
-    /// Returns the input string with the delimeter specification removed from the beginning of the string, if present. 
-    /// If no custom delimiter is specified, returns the input string unchanged.
-    /// </summary>
-    /// <param name="input">the input string</param>
-    /// <returns>string with the delimeter specification removed</returns>
-    /// <exception cref="ArgumentException"></exception>
-    private string removeDelimiterSpecification(string input)
-    {
-        if (input.StartsWith("//"))
-        {
-            var delimiterEndIndex = input.IndexOf('\n');
-
-            return input.Substring(delimiterEndIndex + 1).Trim();
-        }
-
-        return input;
     }
 
     /// <summary>
