@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Collections;
 
 namespace StringCalculatorApp;
 
@@ -17,7 +18,7 @@ public class StringCalculator()
     /// <summary>
     /// Sums ints contained in string. Defaults to commas or new lines as delimiters. 
     /// Delimiters can be changed by including the new delimiter at the beginning of the string in the format "//[delimiter]\n[numbers...]"
-    /// Ignores invalid inputs. Returns 0 for null or empty string.
+    /// Ignores invalid inputs. Returns 0 for null or empty string. Negative numbers are not allowed and will throw an exception.
     /// </summary>
     /// <param name="numbers">a string with ints separated by commas</param>
     /// <returns>an integer representing the sum of the numbers in the string, 0 for a null or empty string</returns>
@@ -38,14 +39,24 @@ public class StringCalculator()
         var parseIntErrors = 0;
         var sum = 0.0;
         var intsProcessed = 0;
+        var numsOutOfBounds = 0;
+        
+        ArrayList negatives = new ArrayList();
 
         foreach (var number in numArray)
         {
             if (double.TryParse(number.Trim(), out var toSum))
             {
+                if (toSum < 0)
+                {
+                    negatives.Add(toSum);
+                    parseIntErrors += 1;
+                    continue;
+                }
+
                 if (toSum > 1000)
                 {
-                    this.numsOutOfBounds += 1;
+                    numsOutOfBounds += 1;
                     continue;
                 }
 
@@ -60,6 +71,16 @@ public class StringCalculator()
 
         this.parseIntErrors = parseIntErrors;
         this.intsProcessed = intsProcessed;
+        this.numsOutOfBounds = numsOutOfBounds;
+
+        if (negatives.Count > 0)
+        {
+            var builder = new StringBuilder();
+
+            builder.AppendJoin(", ", negatives.ToArray());
+
+            throw new ArgumentException($"Negative numbers are not allowed: {builder.ToString()}");
+        }
 
         return sum;
     }

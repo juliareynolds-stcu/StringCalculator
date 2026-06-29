@@ -131,5 +131,18 @@ public class StringCalculatorTests
         sut.GetNumsOutOfBounds().Should().Be(1);
     }
 
+    [Test]
+    public void NegativeNumbersThrowException()
+    {
+        // Arrange
+        var input = "-1,2,-3";
+
+        // Act
+        var sut = new StringCalculator();
+
+        // Assert
+        Assert.Throws<ArgumentException>(() => sut.Add(input));
+    }
+
     // write fail test
 }
