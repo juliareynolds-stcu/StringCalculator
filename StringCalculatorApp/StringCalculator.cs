@@ -21,6 +21,7 @@ public class StringCalculator()
     /// Sums ints contained in string. Defaults to commas or new lines as delimiters. 
     /// Delimiters can be changed by including the new delimiter at the beginning of the string in the format "//[delimiter]\n[numbers...]"
     /// Ignores invalid inputs. Returns 0 for null or empty string. Negative numbers are not allowed and will throw an exception.
+    /// Numbers greater than 1000 are ignored and not included in the sum.
     /// </summary>
     /// <param name="numbers">a string with ints separated by commas</param>
     /// <returns>an integer representing the sum of the numbers in the string, 0 for a null or empty string</returns>
@@ -52,7 +53,7 @@ public class StringCalculator()
                 if (toSum < 0)
                 {
                     negatives.Add(toSum);
-                    parseIntErrors += 1;
+                    numsOutOfBounds += 1;
                     continue;
                 }
 

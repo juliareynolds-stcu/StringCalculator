@@ -9,7 +9,7 @@ public static class StringCalculatorCLI
     /// Main method for the command line interface. Loops until the user chooses to exit, prompting for input and displaying results.
     /// </summary>
     /// <param name="args"></param>
-    public static void Main(string[] args)
+    public static void Main()
     {
         var continueProgram = true;
 
@@ -17,9 +17,9 @@ public static class StringCalculatorCLI
         {
             var userInput = GetUserInput();
 
-            calculateResult(userInput);
+            CalculateResult(userInput);
 
-            continueProgram = continueRequest();
+            continueProgram = ContinueRequest();
         }
     }
 
@@ -32,6 +32,7 @@ public static class StringCalculatorCLI
     {
         Console.WriteLine("Welcome to String Calculator, a project following https://osherove.com/tdd-kata-1/");
         Console.WriteLine("\r\nPlease enter a string of numbers to be summed, separated by your chosen delimiter (default to a comma if unsure).");
+        Console.WriteLine("Numbers to be summed must be between 0 and 1000.");
         Console.Write("Numbers to add:  ");
 
         var userInput = Console.ReadLine();
@@ -53,7 +54,7 @@ public static class StringCalculatorCLI
     /// along with the number of integers summed and the number of parse errors encountered.
     /// </summary>
     /// <param name="userInput">a string containing the user's chosen delimiter and the numbers to sum</param>
-    private static void calculateResult(string userInput)
+    private static void CalculateResult(string userInput)
     {
         var calculator = new StringCalculator();
 
@@ -62,8 +63,8 @@ public static class StringCalculatorCLI
             var result = calculator.Add(userInput);
 
             Console.WriteLine($"\r\nResult:\t\t\t{result}");
-            Console.WriteLine($"Integers summed:\t{calculator.getIntsProcessed()}");
-            Console.WriteLine($"Integer parse errors:\t{calculator.getParseIntErrors()}");
+            Console.WriteLine($"Integers summed:\t{calculator.GetIntsProcessed()}");
+            Console.WriteLine($"Integer parse errors:\t{calculator.GetParseIntErrors()}");
         }
         catch (Exception caught)
         {
@@ -75,20 +76,20 @@ public static class StringCalculatorCLI
     /// Asks the user if they would like to process another string of numbers. Returns true if they would like to continue, false if they would like to exit the program.
     /// </summary>
     /// <returns>boolean indicating whether to end the program or not</returns>
-    private static bool continueRequest()
+    private static bool ContinueRequest()
     {
         Console.Write("\r\nWould you like to process another string of numbers? (y/n)  ");
 
         switch (Console.ReadLine())
         {
-            case "y":
-            case "Y":
+            case "y" or "Y":
                 Console.Clear();
                 return true;
-            case "n":
-            case "N":
+
+            case "n" or "N":
                 Console.WriteLine("\r\nThank you for using String Calculator. Goodbye!");
                 return false;
+
             default:
                 Console.WriteLine("\r\nInvalid input. Exiting program.");
                 return false;
