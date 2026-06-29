@@ -11,6 +11,7 @@ public class StringCalculator()
 {
     private int parseIntErrors;
     private int intsProcessed;
+    private int numsOutOfBounds;
 
     /// <summary>
     /// Sums ints contained in string. Defaults to commas or new lines as delimiters. 

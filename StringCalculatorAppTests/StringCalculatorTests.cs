@@ -98,7 +98,7 @@ public class StringCalculatorTests
         result.Should().Be(2);
         sut.getIntsProcessed().Should().Be(1);
         sut.getParseIntErrors().Should().Be(0);
-        sut.getIntsOutOfBounds().Should().Be(1);
+        sut.GetNumsOutOfBounds().Should().Be(1);
     }
 
     // write fail test
