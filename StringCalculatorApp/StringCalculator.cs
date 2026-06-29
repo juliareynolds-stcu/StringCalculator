@@ -40,6 +40,12 @@ public class StringCalculator()
         {
             if (double.TryParse(number.Trim(), out var toSum))
             {
+                if (toSum > 1000)
+                {
+                    this.numsOutOfBounds += 1;
+                    continue;
+                }
+
                 sum += toSum;
                 intsProcessed += 1;
             }
@@ -119,5 +125,14 @@ public class StringCalculator()
     public int getIntsProcessed()
     {
         return this.intsProcessed;
+    }
+
+    /// <summary>
+    /// Returns the number of numbers that were out of bounds (greater than 1000) during the last call. 
+    /// </summary>
+    /// <returns>int - the number of numbers not processed due to being out of bounds</returns>
+    public int GetNumsOutOfBounds()
+    {
+        return this.numsOutOfBounds;
     }
 }
