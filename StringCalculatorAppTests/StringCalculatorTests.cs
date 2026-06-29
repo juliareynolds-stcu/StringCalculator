@@ -50,7 +50,7 @@ public class StringCalculatorTests
 
         // Assert
         result.Should().Be(1);
-        sut.getParseIntErrors().Should().Be(3);
+        sut.GetParseIntErrors().Should().Be(3);
     }
 
     [Test]
@@ -65,7 +65,7 @@ public class StringCalculatorTests
 
         // Assert
         result.Should().Be(6);
-        sut.getIntsProcessed().Should().Be(3);
+        sut.GetIntsProcessed().Should().Be(3);
     }
 
     [Test]
@@ -80,8 +80,55 @@ public class StringCalculatorTests
 
         // Assert
         result.Should().Be(3);
-        sut.getIntsProcessed().Should().Be(2);
+        sut.GetIntsProcessed().Should().Be(2);
+        sut.GetParseIntErrors().Should().Be(0);
+    }
+
+    [Test]
+    public void GetCallCountGetsNumberOfTimesAddHasBeenCalled()
+    {
+        // Arrange
+        var input = "1";
+        
+        // Act
+        var sut = new StringCalculator();
+
+        sut.Add(input);
+        sut.Add(input);
+        sut.Add(input);
+
+        // Assert
+        sut.GetCalledCount().Should().Be(3);
+    }
+
+    [Test]
+    public void GetCalledCountReturnsZeroWhenAddHasNotBeenCalled()
+    {
+        // Arrange
+        var sut = new StringCalculator();
+
+        // Act
+        var result = sut.GetCalledCount();
+
+        // Assert
+        result.Should().Be(0);
+    }
+
+    [Test]
+    public void IgnoresNumsGreaterThan1000()
+    {
+        // Arrange
+        var input = "2,1001";
+
+        // Act
+        var sut = new StringCalculator();
+        var result = sut.Add(input);
+
+        // Assert
+        result.Should().Be(2);
+        sut.getIntsProcessed().Should().Be(1);
         sut.getParseIntErrors().Should().Be(0);
+        sut.GetNumsOutOfBounds().Should().Be(1);
     }
 
     [Test]

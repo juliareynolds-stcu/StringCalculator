@@ -12,6 +12,8 @@ public class StringCalculator()
 {
     private int parseIntErrors;
     private int intsProcessed;
+    private int addCalledCount;
+    private int numsOutOfBounds;
 
     /// <summary>
     /// Sums ints contained in string. Defaults to commas or new lines as delimiters. 
@@ -22,6 +24,8 @@ public class StringCalculator()
     /// <returns>an integer representing the sum of the numbers in the string, 0 for a null or empty string</returns>
     public double Add(string numbers)
     {
+        this.addCalledCount += 1;
+
         if (string.IsNullOrWhiteSpace(numbers))
         {
             return 0;
@@ -35,6 +39,7 @@ public class StringCalculator()
         var parseIntErrors = 0;
         var sum = 0.0;
         var intsProcessed = 0;
+        var numsOutOfBounds = 0;
         
         ArrayList negatives = new ArrayList();
 
@@ -46,12 +51,16 @@ public class StringCalculator()
                 {
                     negatives.Add(toSum);
                     parseIntErrors += 1;
-                }
-                else
-                {
-                    sum += toSum;
+                    continue;
                 }
 
+                if (toSum > 1000)
+                {
+                    numsOutOfBounds += 1;
+                    continue;
+                }
+
+                sum += toSum;
                 intsProcessed += 1;
             }
             else
@@ -62,6 +71,7 @@ public class StringCalculator()
 
         this.parseIntErrors = parseIntErrors;
         this.intsProcessed = intsProcessed;
+        this.numsOutOfBounds = numsOutOfBounds;
 
         if (negatives.Count > 0)
         {
@@ -127,7 +137,7 @@ public class StringCalculator()
     /// Returns the number of parse errors encountered during the last call
     /// </summary>
     /// <returns>int the number of parse errors</returns>
-    public int getParseIntErrors()
+    public int GetParseIntErrors()
     {
         return this.parseIntErrors;
     }
@@ -136,8 +146,25 @@ public class StringCalculator()
     /// Returns the number of integers processed successfully during the last call
     /// </summary>
     /// <returns>int - the number of ints processed</returns>
-    public int getIntsProcessed()
+    public int GetIntsProcessed()
     {
         return this.intsProcessed;
+    }
+
+    /// <summary>
+    /// Returns the number of times the Add method has been called on this instance of StringCalculator
+    /// </summary>
+    /// <returns>int - number of add calls</returns>
+    public int GetCalledCount()
+    {
+        return this.addCalledCount;
+    }
+  
+    /// Returns the number of numbers that were out of bounds (greater than 1000) during the last call. 
+    /// </summary>
+    /// <returns>int - the number of numbers not processed due to being out of bounds</returns>
+    public int GetNumsOutOfBounds()
+    {
+        return this.numsOutOfBounds;
     }
 }
