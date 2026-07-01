@@ -12,8 +12,8 @@ namespace StringCalculatorApp;
 /// </summary>
 public class StringCalculator()
 {
-    private int parseIntErrors;
-    private int intsProcessed;
+    private int parseErrors;
+    private int numsProcessed;
     private int addCalledCount;
     private int numsOutOfBounds;
 
@@ -39,9 +39,9 @@ public class StringCalculator()
 
         var numArray = numbers.Split(delimiters, StringSplitOptions.RemoveEmptyEntries);
 
-        var parseIntErrors = 0;
+        var parseErrors = 0;
         var sum = 0.0;
-        var intsProcessed = 0;
+        var numsProcessed = 0;
         var numsOutOfBounds = 0;
         
         ArrayList negatives = new ArrayList();
@@ -64,16 +64,16 @@ public class StringCalculator()
                 }
 
                 sum += toSum;
-                intsProcessed += 1;
+                numsProcessed += 1;
             }
             else
             {
-                parseIntErrors += 1;
+                parseErrors += 1;
             }
         }
 
-        this.parseIntErrors = parseIntErrors;
-        this.intsProcessed = intsProcessed;
+        this.parseErrors = parseErrors;
+        this.numsProcessed = numsProcessed;
         this.numsOutOfBounds = numsOutOfBounds;
 
         if (negatives.Count > 0)
@@ -92,18 +92,18 @@ public class StringCalculator()
     /// Returns the number of parse errors encountered during the last call
     /// </summary>
     /// <returns>int the number of parse errors</returns>
-    public int GetParseIntErrors()
+    public int GetParseErrors()
     {
-        return this.parseIntErrors;
+        return this.parseErrors;
     }
 
     /// <summary>
     /// Returns the number of integers processed successfully during the last call
     /// </summary>
     /// <returns>int - the number of ints processed</returns>
-    public int GetIntsProcessed()
+    public int GetNumsProcessed()
     {
-        return this.intsProcessed;
+        return this.numsProcessed;
     }
 
     /// <summary>

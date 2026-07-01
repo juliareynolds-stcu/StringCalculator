@@ -50,7 +50,7 @@ public class StringCalculatorTests
 
         // Assert
         result.Should().Be(1);
-        sut.GetParseIntErrors().Should().Be(3);
+        sut.GetParseErrors().Should().Be(3);
     }
 
     [Test]
@@ -65,7 +65,7 @@ public class StringCalculatorTests
 
         // Assert
         result.Should().Be(6);
-        sut.GetIntsProcessed().Should().Be(3);
+        sut.GetNumsProcessed().Should().Be(3);
     }
 
     [Test]
@@ -80,8 +80,8 @@ public class StringCalculatorTests
 
         // Assert
         result.Should().Be(3);
-        sut.GetIntsProcessed().Should().Be(2);
-        sut.GetParseIntErrors().Should().Be(0);
+        sut.GetNumsProcessed().Should().Be(2);
+        sut.GetParseErrors().Should().Be(0);
     }
 
     [Test]
@@ -126,8 +126,8 @@ public class StringCalculatorTests
 
         // Assert
         result.Should().Be(2);
-        sut.GetIntsProcessed().Should().Be(1);
-        sut.GetParseIntErrors().Should().Be(0);
+        sut.GetNumsProcessed().Should().Be(1);
+        sut.GetParseErrors().Should().Be(0);
         sut.GetNumsOutOfBounds().Should().Be(1);
     }
 

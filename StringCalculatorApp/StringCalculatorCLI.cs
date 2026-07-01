@@ -32,7 +32,7 @@ public static class StringCalculatorCLI
     {
         Console.WriteLine("Welcome to String Calculator, a project following https://osherove.com/tdd-kata-1/");
         Console.WriteLine("\r\nPlease enter a string of numbers to be summed, separated by your chosen delimiter (default to a comma if unsure).");
-        Console.WriteLine("Numbers to be summed must be between 0 and 1000.");
+        Console.WriteLine("Numbers to be summed must be between 0 and 1000 and can include decimals.");
         Console.Write("Numbers to add:  ");
 
         var userInput = Console.ReadLine();
@@ -62,9 +62,10 @@ public static class StringCalculatorCLI
         {
             var result = calculator.Add(userInput);
 
-            Console.WriteLine($"\r\nResult:\t\t\t{result}");
-            Console.WriteLine($"Integers summed:\t{calculator.GetIntsProcessed()}");
-            Console.WriteLine($"Integer parse errors:\t{calculator.GetParseIntErrors()}");
+            Console.WriteLine($"\r\nResult:\t\t{result}");
+            Console.WriteLine($"#'s summed:\t{calculator.GetNumsProcessed()}");
+            Console.WriteLine($"Parse errors:\t{calculator.GetParseErrors()}");
+            Console.WriteLine($"Out of bounds:\t{calculator.GetNumsOutOfBounds()}");
         }
         catch (Exception caught)
         {
