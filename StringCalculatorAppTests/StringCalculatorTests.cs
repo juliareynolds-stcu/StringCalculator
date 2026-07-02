@@ -149,14 +149,14 @@ public class StringCalculatorTests
     {
         var sut = new StringCalculator();
 
-        //This variable exists to be an artifact of our delegate event
+        // This variable exists to be an artifact of our delegate event
         var eventTriggered = false;
 
-        //This is an example of subscribing to an event
-        //(object.event) += (event parameters) => { function that you want to execute when the event is triggered }
+        // This is an example of subscribing to an event
+        // (object.event) += (event parameters) => { function that you want to execute when the event is triggered }
         sut.AddOccurred += (input, result) => AddOccurEvent(input, result);
 
-        //This is another way to subscribe to an event, but using an anonymous function instead of a named function
+        // This is another way to subscribe to an event, but using an anonymous function instead of a named function
         sut.AddOccurred += (input, result) =>
         {
             eventTriggered = true;
