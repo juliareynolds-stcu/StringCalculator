@@ -85,6 +85,22 @@ public class StringCalculatorTests
     }
 
     [Test]
+    public void AcceptsDelimitersOfAnyLength()
+    {
+        // Arrange
+        var input = "//***\n1***2***3";
+
+        // Act
+        var sut = new StringCalculator();
+        var result = sut.Add(input);
+
+        // Assert
+        result.Should().Be(6);
+        sut.GetNumsProcessed().Should().Be(3);
+        sut.GetParseErrors().Should().Be(0);
+    }
+
+    [Test]
     public void GetCallCountGetsNumberOfTimesAddHasBeenCalled()
     {
         // Arrange
@@ -171,7 +187,4 @@ public class StringCalculatorTests
     {
         return true;
     }
-
-
-    // write fail test
 }
