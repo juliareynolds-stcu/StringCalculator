@@ -2,6 +2,7 @@
 
 using StringCalculatorApp;
 using AwesomeAssertions;
+using Newtonsoft.Json.Bson;
 
 public class StringCalculatorTests
 {
@@ -89,6 +90,38 @@ public class StringCalculatorTests
     {
         // Arrange
         var input = "//***\n1***2***3";
+
+        // Act
+        var sut = new StringCalculator();
+        var result = sut.Add(input);
+
+        // Assert
+        result.Should().Be(6);
+        sut.GetNumsProcessed().Should().Be(3);
+        sut.GetParseErrors().Should().Be(0);
+    }
+
+    [Test]
+    public void AcceptsMultipleDelimiters()
+    {
+        // Arrange
+        var input = "//[*][%]\n1*2%3";
+
+        // Act
+        var sut = new StringCalculator();
+        var result = sut.Add(input);
+
+        // Assert
+        result.Should().Be(6);
+        sut.GetNumsProcessed().Should().Be(3);
+        sut.GetParseErrors().Should().Be(0);
+    }
+
+    [Test]
+    public void AcceptsMultipleDelimitersOfAnyLength()
+    {
+        // Arrange
+        var input = "//[***][%%]\n1***2%%3";
 
         // Act
         var sut = new StringCalculator();
