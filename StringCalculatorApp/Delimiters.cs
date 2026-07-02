@@ -12,7 +12,8 @@ namespace StringCalculatorApp;
 public static class Delimiters
 {
     /// <summary>
-    /// Parses custom delimiters from the input string. 
+    /// Parses custom delimiters from the input string.
+    /// If using multiple custom delimiters, they should be specified in the format "//[delim1][delim2]\n[numbers...]".
     /// If no custom delimiter is specified, returns the default delimiters (comma and newline).
     /// Also trims the input string to remove the custom delimiter specification if present.
     /// </summary>
@@ -30,9 +31,16 @@ public static class Delimiters
                 throw new ArgumentException("Invalid input: missing newline after custom delimiter");
             }
 
-            var customDelimiter = input.Substring(2, delimiterEndIndex - 2).Trim();
+            var delimiterSpec = input.Substring(2, delimiterEndIndex - 2).Trim();
 
-            return [customDelimiter];
+            if (delimiterSpec[0] == '[')
+            {
+                delimiterSpec = delimiterSpec.Substring(1, delimiterSpec.Length - 2); // Remove surrounding brackets
+            }
+
+            string[] customDelimiters = delimiterSpec.Split("][");
+
+            return customDelimiters;
         }
 
         return [",", "\r\n", "\n"];
