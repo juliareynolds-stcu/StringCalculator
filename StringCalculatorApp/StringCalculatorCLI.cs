@@ -35,18 +35,33 @@ public static class StringCalculatorCLI
         Console.WriteLine("Numbers to be summed must be between 0 and 1000 and can include decimals.");
         Console.Write("Numbers to add:  ");
 
-        var userInput = Console.ReadLine();
+        var userInputNums = Console.ReadLine();
 
-        Console.Write("Delimiter (leave blank for default - comma):  ");
+        Console.WriteLine("Please enter your chosen delimiter. Leave this blank to use the default(,).");
+        Console.WriteLine("If using multiple delimiters, separate them with ','");
+        Console.Write("Delimiter(s):  ");
 
-        var userDelimiter = Console.ReadLine();
+        var userInputDelimiters = Console.ReadLine();
 
-        if (string.IsNullOrWhiteSpace(userDelimiter))
+        if (string.IsNullOrWhiteSpace(userInputDelimiters))
         {
-            userDelimiter = ",";
+            userInputDelimiters = ",";
+        }
+        else
+        {
+            string[] userDelimiters = userInputDelimiters.Split(",", StringSplitOptions.RemoveEmptyEntries);
+
+            if (userDelimiters.Length == 0)
+            {
+                userInputDelimiters = ",";
+            }
+            else if (userDelimiters.Length > 1)
+            {
+                userInputDelimiters = $"[{string.Join("][", userDelimiters)}]";
+            }
         }
 
-        return $"//{userDelimiter}\n{userInput}";
+        return $"//{userInputDelimiters}\n{userInputNums}";
     }
 
     /// <summary>
