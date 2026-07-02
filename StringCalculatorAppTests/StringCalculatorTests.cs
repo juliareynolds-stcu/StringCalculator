@@ -12,6 +12,7 @@ public class StringCalculatorTests
     }
 
     [Test]
+    [Category("Input")]
     public void SumsWhenGivenString()
     {
         // Arrange
@@ -26,6 +27,7 @@ public class StringCalculatorTests
     }
 
     [Test]
+    [Category("Input")]
     public void ReturnsZeroWhenGivenNullOrEmptyString()
     {
         // Arrange
@@ -40,6 +42,7 @@ public class StringCalculatorTests
     }
 
     [Test]
+    [Category("Input")]
     public void IgnoresInvalidInputs()
     {
         // Arrange
@@ -55,6 +58,7 @@ public class StringCalculatorTests
     }
 
     [Test]
+    [Category("Delimiters")]
     public void AcceptsNewlineAsDelimiter()
     {
         // Arrange
@@ -70,6 +74,7 @@ public class StringCalculatorTests
     }
 
     [Test]
+    [Category("Delimiters")]
     public void AcceptsAlternateDelimiters()
     {
         // Arrange
@@ -86,6 +91,7 @@ public class StringCalculatorTests
     }
 
     [Test]
+    [Category("Delimiters")]
     public void AcceptsDelimitersOfAnyLength()
     {
         // Arrange
@@ -102,6 +108,7 @@ public class StringCalculatorTests
     }
 
     [Test]
+    [Category("Delimiters")]
     public void AcceptsMultipleDelimiters()
     {
         // Arrange
@@ -118,6 +125,7 @@ public class StringCalculatorTests
     }
 
     [Test]
+    [Category("Delimiters")]
     public void AcceptsMultipleDelimitersOfAnyLength()
     {
         // Arrange
@@ -134,6 +142,7 @@ public class StringCalculatorTests
     }
 
     [Test]
+    [Category("Number of Calls")]
     public void GetCallCountGetsNumberOfTimesAddHasBeenCalled()
     {
         // Arrange
@@ -151,6 +160,7 @@ public class StringCalculatorTests
     }
 
     [Test]
+    [Category("Number of Calls")]
     public void GetCalledCountReturnsZeroWhenAddHasNotBeenCalled()
     {
         // Arrange
@@ -164,6 +174,7 @@ public class StringCalculatorTests
     }
 
     [Test]
+    [Category("Input")]
     public void IgnoresNumsGreaterThan1000()
     {
         // Arrange
@@ -181,6 +192,7 @@ public class StringCalculatorTests
     }
 
     [Test]
+    [Category("Input")]
     public void NegativeNumbersThrowException()
     {
         // Arrange
@@ -194,6 +206,7 @@ public class StringCalculatorTests
     }
 
     [Test]
+    [Category("Number of Calls")]
     public void AddEventIsTriggered()
     {
         var sut = new StringCalculator();
