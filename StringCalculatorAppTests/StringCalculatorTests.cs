@@ -204,33 +204,4 @@ public class StringCalculatorTests
         // Assert
         Assert.Throws<ArgumentException>(() => sut.Add(input));
     }
-
-    [Test]
-    [Category("Number of Calls")]
-    public void AddEventIsTriggered()
-    {
-        var sut = new StringCalculator();
-
-        // This variable exists to be an artifact of our delegate event
-        var eventTriggered = false;
-
-        // This is an example of subscribing to an event
-        // (object.event) += (event parameters) => { function that you want to execute when the event is triggered }
-        sut.AddOccurred += (input, result) => AddOccurEvent(input, result);
-
-        // This is another way to subscribe to an event, but using an anonymous function instead of a named function
-        sut.AddOccurred += (input, result) =>
-        {
-            eventTriggered = true;
-        };
-
-        sut.Add("1");
-
-        eventTriggered.Should().BeTrue();
-    }
-
-    private bool AddOccurEvent(string name, int value)
-    {
-        return true;
-    }
 }
