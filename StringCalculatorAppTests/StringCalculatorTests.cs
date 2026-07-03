@@ -2,6 +2,7 @@
 
 using StringCalculatorApp;
 using AwesomeAssertions;
+using Newtonsoft.Json.Bson;
 
 public class StringCalculatorTests
 {
@@ -11,6 +12,7 @@ public class StringCalculatorTests
     }
 
     [Test]
+    [Category("Input")]
     public void SumsWhenGivenString()
     {
         // Arrange
@@ -25,6 +27,7 @@ public class StringCalculatorTests
     }
 
     [Test]
+    [Category("Input")]
     public void ReturnsZeroWhenGivenNullOrEmptyString()
     {
         // Arrange
@@ -39,6 +42,7 @@ public class StringCalculatorTests
     }
 
     [Test]
+    [Category("Input")]
     public void IgnoresInvalidInputs()
     {
         // Arrange
@@ -54,6 +58,7 @@ public class StringCalculatorTests
     }
 
     [Test]
+    [Category("Delimiters")]
     public void AcceptsNewlineAsDelimiter()
     {
         // Arrange
@@ -69,6 +74,7 @@ public class StringCalculatorTests
     }
 
     [Test]
+    [Category("Delimiters")]
     public void AcceptsAlternateDelimiters()
     {
         // Arrange
@@ -85,11 +91,63 @@ public class StringCalculatorTests
     }
 
     [Test]
+    [Category("Delimiters")]
+    public void AcceptsDelimitersOfAnyLength()
+    {
+        // Arrange
+        var input = "//***\n1***2***3";
+
+        // Act
+        var sut = new StringCalculator();
+        var result = sut.Add(input);
+
+        // Assert
+        result.Should().Be(6);
+        sut.GetNumsProcessed().Should().Be(3);
+        sut.GetParseErrors().Should().Be(0);
+    }
+
+    [Test]
+    [Category("Delimiters")]
+    public void AcceptsMultipleDelimiters()
+    {
+        // Arrange
+        var input = "//[*][%]\n1*2%3";
+
+        // Act
+        var sut = new StringCalculator();
+        var result = sut.Add(input);
+
+        // Assert
+        result.Should().Be(6);
+        sut.GetNumsProcessed().Should().Be(3);
+        sut.GetParseErrors().Should().Be(0);
+    }
+
+    [Test]
+    [Category("Delimiters")]
+    public void AcceptsMultipleDelimitersOfAnyLength()
+    {
+        // Arrange
+        var input = "//[***][%%]\n1***2%%3";
+
+        // Act
+        var sut = new StringCalculator();
+        var result = sut.Add(input);
+
+        // Assert
+        result.Should().Be(6);
+        sut.GetNumsProcessed().Should().Be(3);
+        sut.GetParseErrors().Should().Be(0);
+    }
+
+    [Test]
+    [Category("Number of Calls")]
     public void GetCallCountGetsNumberOfTimesAddHasBeenCalled()
     {
         // Arrange
         var input = "1";
-        
+
         // Act
         var sut = new StringCalculator();
 
@@ -102,6 +160,7 @@ public class StringCalculatorTests
     }
 
     [Test]
+    [Category("Number of Calls")]
     public void GetCalledCountReturnsZeroWhenAddHasNotBeenCalled()
     {
         // Arrange
@@ -115,6 +174,7 @@ public class StringCalculatorTests
     }
 
     [Test]
+    [Category("Input")]
     public void IgnoresNumsGreaterThan1000()
     {
         // Arrange
@@ -132,6 +192,7 @@ public class StringCalculatorTests
     }
 
     [Test]
+    [Category("Input")]
     public void NegativeNumbersThrowException()
     {
         // Arrange
@@ -145,33 +206,54 @@ public class StringCalculatorTests
     }
 
     [Test]
-    public void AddEventIsTriggered()
+    [Category("Event")]
+    public void AddOccuredTest()
     {
+        // Arrange
+        var input = "1,2,3";
+        var occurred = false;
+        double sumValue = 0;
         var sut = new StringCalculator();
-
-        // This variable exists to be an artifact of our delegate event
-        var eventTriggered = false;
-
-        // This is an example of subscribing to an event
-        // (object.event) += (event parameters) => { function that you want to execute when the event is triggered }
-        sut.AddOccurred += (input, result) => AddOccurEvent(input, result);
-
-        // This is another way to subscribe to an event, but using an anonymous function instead of a named function
-        sut.AddOccurred += (input, result) =>
-        {
-            eventTriggered = true;
+        
+        sut.AddOccured += DelegateHandled; // subscribe with a function pointer (delegate)
+        sut.AddOccured += DelegateHandled2;
+        sut.AddOccured += (input, sum) => // subscribe with anonymous function
+        { 
+            occurred = true;
+            sumValue = sum + 3;
         };
 
-        sut.Add("1");
+        // Act
+        var result = sut.Add(input);
 
-        eventTriggered.Should().BeTrue();
+        // Assert
+        occurred.Should().BeTrue();
+        result.Should().Be(6);
+        sumValue.Should().Be(9);
     }
 
-    private bool AddOccurEvent(string name, int value)
+    /// <summary>
+    /// Function pointed to when event occurs. 
+    /// Function isn't called on 219.
+    /// Function is called inside Add() in StringCalculator
+    /// </summary>
+    /// <param name="input"></param>
+    /// <param name="sum"></param>
+    private void DelegateHandled(string input, double sum)
     {
-        return true;
+        Console.WriteLine("DelegateHandled was triggered");
+        Console.WriteLine($"Input: {input}");
+        Console.WriteLine($"Sum: {sum}");
     }
 
-
-    // write fail test
+    /// <summary>
+    /// Function pointed to when event occurs. 
+    /// Function isn't called on 219.
+    /// </summary>
+    /// <param name="input"></param>
+    /// <param name="sum"></param>
+    private void DelegateHandled2(string input, double sum)
+    {
+        Console.WriteLine("DelegateHandled2 was triggered");
+    }
 }

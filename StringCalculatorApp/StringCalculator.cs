@@ -18,6 +18,11 @@ public class StringCalculator()
     private int numsOutOfBounds;
 
     /// <summary>
+    /// Event that is triggered when the Add method is called. It passes the input string and the result of the addition as parameters.
+    /// </summary>
+    public event Action<string, double>? AddOccured;
+
+    /// <summary>
     /// Sums ints contained in string. Defaults to commas or new lines as delimiters. 
     /// Delimiters can be changed by including the new delimiter at the beginning of the string in the format "//[delimiter]\n[numbers...]"
     /// Ignores invalid inputs. Returns 0 for null or empty string. Negative numbers are not allowed and will throw an exception.
@@ -85,8 +90,7 @@ public class StringCalculator()
             throw new ArgumentException($"Negative numbers are not allowed: {builder.ToString()}");
         }
 
-        // This is where we fire off the event. Anyone who has subscribed to it will have their delegate methods run
-        AddOccurred?.Invoke(numbers, (int)sum);
+        AddOccured?.Invoke(numbers, sum);
 
         return sum;
     }
@@ -125,6 +129,4 @@ public class StringCalculator()
     {
         return this.numsOutOfBounds;
     }
-
-    public event Action<string, int>? AddOccurred; //This is the anchor event that can be manually called and will notify subscribers
 }
