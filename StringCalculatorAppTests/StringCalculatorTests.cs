@@ -147,7 +147,7 @@ public class StringCalculatorTests
     {
         // Arrange
         var input = "1";
-        
+
         // Act
         var sut = new StringCalculator();
 
@@ -203,5 +203,57 @@ public class StringCalculatorTests
 
         // Assert
         Assert.Throws<ArgumentException>(() => sut.Add(input));
+    }
+
+    [Test]
+    [Category("Event")]
+    public void AddOccuredTest()
+    {
+        // Arrange
+        var input = "1,2,3";
+        var occurred = false;
+        double sumValue = 0;
+        var sut = new StringCalculator();
+        
+        sut.AddOccured += DelegateHandled; // subscribe with a function pointer (delegate)
+        sut.AddOccured += DelegateHandled2;
+        sut.AddOccured += (input, sum) => // subscribe with anonymous function
+        { 
+            occurred = true;
+            sumValue = sum + 3;
+        };
+
+        // Act
+        var result = sut.Add(input);
+
+        // Assert
+        occurred.Should().BeTrue();
+        result.Should().Be(6);
+        sumValue.Should().Be(9);
+    }
+
+    /// <summary>
+    /// Function pointed to when event occurs. 
+    /// Function isn't called on 219.
+    /// Function is called inside Add() in StringCalculator
+    /// </summary>
+    /// <param name="input"></param>
+    /// <param name="sum"></param>
+    private void DelegateHandled(string input, double sum)
+    {
+        Console.WriteLine("DelegateHandled was triggered");
+        Console.WriteLine($"Input: {input}");
+        Console.WriteLine($"Sum: {sum}");
+    }
+
+    /// <summary>
+    /// Function pointed to when event occurs. 
+    /// Function isn't called on 219.
+    /// </summary>
+    /// <param name="input"></param>
+    /// <param name="sum"></param>
+    private void DelegateHandled2(string input, double sum)
+    {
+        Console.WriteLine("DelegateHandled2 was triggered");
     }
 }
